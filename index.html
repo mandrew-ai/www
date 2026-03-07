@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mandrew.ai — AI-Native Applications & Services</title>
+  <meta name="description" content="mandrew.ai builds AI-native applications and services.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --border: #1a1a1a;
+      --text: #e0e0e0;
+      --text-muted: #666666;
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.15);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Subtle animated gradient background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 30% 50%, var(--accent-glow) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+      animation: drift 20s ease-in-out infinite alternate;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes drift {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-5%, 3%) rotate(2deg); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      max-width: 640px;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #e0e0e0 0%, #6366f1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo span {
+      font-weight: 300;
+      opacity: 0.7;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+      letter-spacing: 0.02em;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(20px);
+    }
+
+    .card p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 100px;
+      transition: all 0.3s ease;
+      margin-top: 1.5rem;
+    }
+
+    .contact-link:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .contact-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+
+    /* Fade-in animation */
+    .container, footer {
+      animation: fadeUp 0.8s ease-out both;
+    }
+    footer { animation-delay: 0.2s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .logo { font-size: 2rem; }
+      .card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="logo">mandrew<span>.ai</span></h1>
+    <p class="tagline">AI-native applications & services</p>
+
+    <div class="card">
+      <p>We're building the next generation of AI-native products — applications designed from the ground up with intelligence at their core, not bolted on as an afterthought.</p>
+    </div>
+
+    <a href="mailto:contact@mandrew.ai" class="contact-link">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+      </svg>
+      contact@mandrew.ai
+    </a>
+  </div>
+
+  <footer>&copy; 2026 mandrew.ai</footer>
+</body>
+</html>
