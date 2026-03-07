@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CommSense — AI Intelligence Over Your Communication Graph | mandrew.ai</title>
+  <meta name="description" content="CommSense analyzes cross-platform organizational communications to surface actionable insights — helping employees, managers, and organizations communicate more effectively.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ── Theme Variables ── */
+    :root {
+      --transition-speed: 0.35s;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0a0a0a;
+      --bg-alt: #0f0f0f;
+      --surface: #141418;
+      --surface-hover: #1a1a20;
+      --border: #1e1e26;
+      --text: #e8e8ef;
+      --text-secondary: #9a9ab0;
+      --text-muted: #5a5a72;
+      --accent: #00d4d4;
+      --accent-dim: rgba(0, 212, 212, 0.12);
+      --accent-glow: rgba(0, 212, 212, 0.08);
+      --accent2: #6366f1;
+      --accent2-dim: rgba(99, 102, 241, 0.12);
+      --gradient-hero: linear-gradient(180deg, rgba(0,212,212,0.06) 0%, transparent 60%);
+      --shadow-card: 0 2px 24px rgba(0,0,0,0.4);
+      --shadow-img: 0 8px 40px rgba(0,0,0,0.5);
+      --nav-bg: rgba(10, 10, 10, 0.85);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8f9fc;
+      --bg-alt: #ffffff;
+      --surface: #ffffff;
+      --surface-hover: #f0f1f5;
+      --border: #e2e4ec;
+      --text: #1a1a2e;
+      --text-secondary: #555570;
+      --text-muted: #8888a0;
+      --accent: #0099a0;
+      --accent-dim: rgba(0, 153, 160, 0.1);
+      --accent-glow: rgba(0, 153, 160, 0.06);
+      --accent2: #6366f1;
+      --accent2-dim: rgba(99, 102, 241, 0.08);
+      --gradient-hero: linear-gradient(180deg, rgba(0,153,160,0.06) 0%, transparent 60%);
+      --shadow-card: 0 2px 20px rgba(0,0,0,0.06);
+      --shadow-img: 0 8px 40px rgba(0,0,0,0.1);
+      --nav-bg: rgba(248, 249, 252, 0.88);
+    }
+
+    /* ── Base ── */
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background var(--transition-speed), color var(--transition-speed);
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition-speed), border-color var(--transition-speed);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text-secondary);
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .theme-toggle svg { width: 18px; height: 18px; }
+
+    .icon-sun, .icon-moon { display: none; }
+    [data-theme="dark"] .icon-sun { display: block; }
+    [data-theme="light"] .icon-moon { display: block; }
+
+    /* ── Theme-Aware Images ── */
+    .img-dark, .img-light { border-radius: 12px; }
+    [data-theme="dark"] .img-light { display: none !important; }
+    [data-theme="dark"] .img-dark { display: block !important; }
+    [data-theme="light"] .img-dark { display: none !important; }
+    [data-theme="light"] .img-light { display: block !important; }
+
+    /* ── Layout ── */
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section {
+      padding: 6rem 0;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding-top: 10rem;
+      padding-bottom: 5rem;
+      text-align: center;
+      background: var(--gradient-hero);
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: var(--text-secondary);
+      font-weight: 300;
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 212, 212, 0.3);
+    }
+
+    .hero-cta svg { width: 18px; height: 18px; }
+
+    /* ── Hero Screenshot ── */
+    .hero-screenshot {
+      margin-top: 4rem;
+      position: relative;
+    }
+
+    .hero-screenshot img {
+      width: 100%;
+      max-width: 1060px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-img);
+      border: 1px solid var(--border);
+    }
+
+    .hero-screenshot::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 80px;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+      filter: blur(20px);
+      pointer-events: none;
+    }
+
+    /* ── Section Headers ── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 20px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 1px;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    /* ── Feature Sections (alternating layout) ── */
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      padding: 5rem 0;
+    }
+
+    .feature-row.reverse .feature-text { order: 2; }
+    .feature-row.reverse .feature-media { order: 1; }
+
+    .feature-media img {
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: var(--shadow-img);
+      border: 1px solid var(--border);
+      transition: box-shadow var(--transition-speed), border-color var(--transition-speed);
+    }
+
+    .feature-bullets {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .feature-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .feature-bullets li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 0.55rem;
+    }
+
+    /* ── Showcase (full-width image sections) ── */
+    .showcase {
+      text-align: center;
+      padding: 6rem 0;
+    }
+
+    .showcase-header {
+      max-width: 680px;
+      margin: 0 auto 3rem;
+    }
+
+    .showcase-media {
+      position: relative;
+    }
+
+    .showcase-media img {
+      width: 100%;
+      max-width: 1060px;
+      border-radius: 14px;
+      box-shadow: var(--shadow-img);
+      border: 1px solid var(--border);
+    }
+
+    /* ── Three Column Cards ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      background: var(--surface-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      color: var(--accent);
+    }
+
+    .card-icon svg { width: 22px; height: 22px; }
+
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* ── Role Cards ── */
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .role-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.25rem 2rem;
+      transition: all 0.3s;
+    }
+
+    .role-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .role-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+
+    .role-badge.employee { background: var(--accent-dim); color: var(--accent); }
+    .role-badge.manager { background: var(--accent2-dim); color: var(--accent2); }
+    .role-badge.admin { background: rgba(245, 158, 11, 0.12); color: #f59e0b; }
+
+    .role-card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .role-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* ── Dual Screenshot Grid ── */
+    .dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .dual-grid img {
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: var(--shadow-img);
+      border: 1px solid var(--border);
+    }
+
+    /* ── Principles ── */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    .principle {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .principle:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .principle-num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      opacity: 0.6;
+    }
+
+    .principle h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .principle p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    /* ── CTA Section ── */
+    .cta-section {
+      text-align: center;
+      padding: 6rem 0 8rem;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.8rem 2rem;
+      border: 1px solid rgba(0, 212, 212, 0.3);
+      border-radius: 100px;
+      transition: all 0.3s ease;
+    }
+
+    [data-theme="light"] .cta-button {
+      border-color: rgba(0, 153, 160, 0.3);
+    }
+
+    .cta-button:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .cta-button svg { width: 16px; height: 16px; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      transition: border-color var(--transition-speed);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-inner span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-inner a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-inner a:hover { color: var(--accent); }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 1200px;
+      margin: 0 auto;
+      transition: background var(--transition-speed);
+    }
+
+    /* ── Animations ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .feature-row {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .feature-row.reverse .feature-text,
+      .feature-row.reverse .feature-media { order: unset; }
+
+      .cards-grid, .roles-grid { grid-template-columns: 1fr 1fr; }
+      .principles-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 4rem 0; }
+      .hero { padding-top: 7rem; padding-bottom: 3rem; }
+      .nav-links a.hide-mobile { display: none; }
+      .cards-grid, .roles-grid, .dual-grid { grid-template-columns: 1fr; }
+      .principles-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { flex-direction: column; gap: 0.75rem; }
+    }
+
+    @media (max-width: 480px) {
+      .wrap { padding: 0 1.25rem; }
+      .principles-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">mandrew.ai</a>
+    <div class="nav-links">
+      <a href="#roles" class="hide-mobile">Roles</a>
+      <a href="#features" class="hide-mobile">Features</a>
+      <a href="#ai-chat" class="hide-mobile">AI Chat</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="wrap">
+    <h1>AI intelligence over your<br><span class="gradient-text">communication graph</span></h1>
+    <p class="hero-sub">CommSense analyzes cross-platform organizational communications to surface actionable insights — helping employees understand themselves, managers strengthen their teams, and organizations achieve more.</p>
+    <a href="#contact" class="hero-cta">
+      Get in touch
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <div class="hero-screenshot fade-in">
+      <img class="img-dark" src="assets/commsense/ceo_graph_dark.jpeg" alt="CommSense Communication Graph — Dark">
+      <img class="img-light" src="assets/commsense/ceo_graph_light.jpeg" alt="CommSense Communication Graph — Light">
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ROLE CARDS ══════════════ -->
+<section id="roles">
+  <div class="wrap">
+    <div style="text-align:center;" class="fade-in">
+      <span class="section-label">Built for every level</span>
+      <h2 class="section-title">Three perspectives, one platform</h2>
+      <p class="section-desc" style="margin:0 auto;">CommSense adapts to your role — giving employees self-awareness, managers team visibility, and admins full control.</p>
+    </div>
+
+    <div class="roles-grid fade-in">
+      <div class="role-card">
+        <span class="role-badge employee">Employee</span>
+        <h3>Understand yourself</h3>
+        <p>View your personal communication graph, behavioral profile, relationship scores, and responsiveness patterns. Get actionable suggestions for improvement based on AI analysis of your communication style.</p>
+      </div>
+      <div class="role-card">
+        <span class="role-badge manager">Manager</span>
+        <h3>Strengthen your team</h3>
+        <p>See team-wide communication patterns, relationship health across pairs, cross-team interactions, and trend detection. Identify silos, friction points, and communication gaps before they become problems.</p>
+      </div>
+      <div class="role-card">
+        <span class="role-badge admin">Administrator</span>
+        <h3>Connect & configure</h3>
+        <p>Plug in Microsoft Graph, Slack, and more. Map identities across platforms, define the org chart, select analysis scope, and grant manager access — all with privacy-first controls.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════ EMPLOYEE DASHBOARD ══════════════ -->
+<section id="features">
+  <div class="wrap">
+    <div class="feature-row fade-in">
+      <div class="feature-text">
+        <span class="section-label">Employee Dashboard</span>
+        <h2 class="section-title">Your communication fingerprint</h2>
+        <p class="section-desc">Get a complete picture of how you communicate. CommSense classifies your behavioral attributes across five dimensions — from assertiveness to information sharing — so you can understand your natural style and adapt where it matters.</p>
+        <ul class="feature-bullets">
+          <li>Behavioral profiling across assertiveness, mode preference, interpersonal orientation, conflict style, and information sharing</li>
+          <li>Aggregate sentiment, engagement, and attentiveness signals</li>
+          <li>Anomaly detection when your patterns shift with specific people</li>
+        </ul>
+      </div>
+      <div class="feature-media">
+        <img class="img-dark" src="assets/commsense/employee_dashboard_dark.jpeg" alt="Employee Dashboard — Dark">
+        <img class="img-light" src="assets/commsense/employee_dashboard_light.jpeg" alt="Employee Dashboard — Light">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ BEHAVIORAL PROFILE ══════════════ -->
+<section style="background:var(--bg-alt);transition:background var(--transition-speed);">
+  <div class="wrap">
+    <div class="feature-row reverse fade-in">
+      <div class="feature-text">
+        <span class="section-label">Behavioral Profile</span>
+        <h2 class="section-title">Five dimensions of communication style</h2>
+        <p class="section-desc">Every person communicates differently. CommSense uses AI-native analysis to classify interactions across five key behavioral dimensions — giving individuals and managers a nuanced view that goes far beyond simple sentiment.</p>
+        <ul class="feature-bullets">
+          <li>Assertiveness — High, Medium, or Low engagement patterns</li>
+          <li>Conflict & Feedback — Collaborating, Accommodating, or Competing</li>
+          <li>Information Sharing — Open, Selective, or Minimal transparency</li>
+        </ul>
+      </div>
+      <div class="feature-media">
+        <img class="img-dark" src="assets/commsense/ceo_profile_dark.jpeg" alt="Behavioral Profile — Dark">
+        <img class="img-light" src="assets/commsense/ceo_profile_light.jpeg" alt="Behavioral Profile — Light">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ RELATIONSHIP SCORING ══════════════ -->
+<section>
+  <div class="wrap">
+    <div class="feature-row fade-in">
+      <div class="feature-text">
+        <span class="section-label">Relationship Scoring</span>
+        <h2 class="section-title">Every connection, measured</h2>
+        <p class="section-desc">Each 1:1 relationship is scored across Human Connection, Professionalism, and Closure — along with interaction volume and key discussion themes. See which relationships are thriving and which need attention.</p>
+        <ul class="feature-bullets">
+          <li>Human Connection — warmth, empathy, personal engagement</li>
+          <li>Professionalism — tone, clarity, and mutual respect</li>
+          <li>Closure — threads resolved, commitments met, questions answered</li>
+          <li>Themes — deliverable reminders, status checks, escalations, and more</li>
+        </ul>
+      </div>
+      <div class="feature-media">
+        <img class="img-dark" src="assets/commsense/ceo_relationships_dark.jpeg" alt="Relationship Scoring — Dark">
+        <img class="img-light" src="assets/commsense/ceo_relationships_light.jpeg" alt="Relationship Scoring — Light">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ INTERACTION DETAIL ══════════════ -->
+<section style="background:var(--bg-alt);transition:background var(--transition-speed);">
+  <div class="wrap">
+    <div class="feature-row reverse fade-in">
+      <div class="feature-text">
+        <span class="section-label">Interaction Detail</span>
+        <h2 class="section-title">Drill into any connection</h2>
+        <p class="section-desc">Click any edge in the graph to see the full picture: channel breakdown (email, chat, meeting), interaction volume over time, relationship strength score, and activity trends — all in a single view.</p>
+        <ul class="feature-bullets">
+          <li>Per-channel interaction counts with 1:1 vs. group breakdowns</li>
+          <li>Activity timeline showing communication patterns over your analysis period</li>
+          <li>Relationship strength calculated from frequency, quality, and reciprocity</li>
+        </ul>
+      </div>
+      <div class="feature-media">
+        <img class="img-dark" src="assets/commsense/interaction_card_dark.jpeg" alt="Interaction Detail Card — Dark">
+        <img class="img-light" src="assets/commsense/interaction_card_light.jpeg" alt="Interaction Detail Card — Light">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ COMMUNICATION GRAPH (full-width) ══════════════ -->
+<section>
+  <div class="wrap">
+    <div class="showcase fade-in">
+      <div class="showcase-header">
+        <span class="section-label">Communication Graph</span>
+        <h2 class="section-title">See the network, not just the nodes</h2>
+        <p class="section-desc" style="margin:0 auto;">An interactive, filterable graph of your organization's real communication patterns. Filter by team, channel, time range, and relationship strength to uncover the hidden dynamics that drive your organization.</p>
+      </div>
+      <div class="showcase-media">
+        <img class="img-dark" src="assets/commsense/org_graph_dark.jpeg" alt="Organization Graph — Dark">
+        <img class="img-light" src="assets/commsense/graph_org_light.jpeg" alt="Organization Graph — Light">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════ MANAGER / ORG VIEW ══════════════ -->
+<section>
+  <div class="wrap">
+    <div class="showcase fade-in">
+      <div class="showcase-header">
+        <span class="section-label">Manager View</span>
+        <h2 class="section-title">Team intelligence at a glance</h2>
+        <p class="section-desc" style="margin:0 auto;">Managers get an aggregated dashboard with people, connections, interaction volume, team counts, and channel usage — plus AI-generated insights categorized by severity and type.</p>
+      </div>
+      <div class="showcase-media">
+        <img class="img-dark" src="assets/commsense/org_dashboard_dark.jpeg" alt="Manager Dashboard — Dark">
+        <img class="img-light" src="assets/commsense/org_dashboard_light.jpeg" alt="Manager Dashboard — Light">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ORG INSIGHTS ══════════════ -->
+<section style="background:var(--bg-alt);transition:background var(--transition-speed);">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:3rem;" class="fade-in">
+      <span class="section-label">AI-Powered Insights</span>
+      <h2 class="section-title">Proactive, not reactive</h2>
+      <p class="section-desc" style="margin:0 auto;">CommSense continuously analyzes the communication graph and surfaces prioritized insights — from critical cross-team silos to individual relationship risks — with full explanations of why each matters.</p>
+    </div>
+    <div class="dual-grid fade-in">
+      <div>
+        <img class="img-dark" src="assets/commsense/org_insight_cross_team_dark.jpeg" alt="Cross-Team Insights — Dark">
+        <img class="img-light" src="assets/commsense/org_insight_cross_team_light.jpeg" alt="Cross-Team Insights — Light">
+      </div>
+      <div>
+        <img class="img-dark" src="assets/commsense/org_insight_individual_dark.jpeg" alt="Individual Insights — Dark">
+        <img class="img-light" src="assets/commsense/org_insights_individual_light.jpeg" alt="Individual Insights — Light">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ TREND ANALYSIS ══════════════ -->
+<section>
+  <div class="wrap">
+    <div class="feature-row fade-in">
+      <div class="feature-text">
+        <span class="section-label">Trend Analysis</span>
+        <h2 class="section-title">Track changes over time</h2>
+        <p class="section-desc">Communication patterns aren't static. CommSense tracks behavioral and relationship trends over time so you can see how team dynamics evolve — and catch shifts before they become problems.</p>
+        <ul class="feature-bullets">
+          <li>Behavioral attribute trends across all five dimensions</li>
+          <li>Relationship strength changes over configurable time windows</li>
+          <li>Anomaly alerts when patterns deviate significantly</li>
+        </ul>
+      </div>
+      <div class="feature-media">
+        <img class="img-dark" src="assets/commsense/ceo_trend_dark.jpeg" alt="Trend Analysis — Dark">
+        <img class="img-light" src="assets/commsense/ceo_trend_light.jpeg" alt="Trend Analysis — Light">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════ AI INSIGHTS DETAIL ══════════════ -->
+<section>
+  <div class="wrap">
+    <div class="feature-row reverse fade-in">
+      <div class="feature-text">
+        <span class="section-label">Deep Insights</span>
+        <h2 class="section-title">AI that explains itself</h2>
+        <p class="section-desc">Every insight comes with a "Why this matters" explanation — not just a flag, but a full narrative about the pattern detected, its implications, and what to do about it. Insights are categorized by severity and type.</p>
+        <ul class="feature-bullets">
+          <li>Prioritized by severity — High, Medium, Low — so you know what to tackle first</li>
+          <li>Typed by category — cross-team silos, bridge imbalances, relationship weaknesses, volume spikes</li>
+          <li>Actionable explanations backed by real communication data</li>
+        </ul>
+      </div>
+      <div class="feature-media">
+        <img class="img-dark" src="assets/commsense/ceo_insights_dark.jpeg" alt="Deep Insights — Dark">
+        <img class="img-light" src="assets/commsense/ceo_insights_light.jpeg" alt="Deep Insights — Light">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ AI CHAT ══════════════ -->
+<section id="ai-chat" style="background:var(--bg-alt);transition:background var(--transition-speed);">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:3rem;" class="fade-in">
+      <span class="section-label">AI Chat</span>
+      <h2 class="section-title">Ask your data anything</h2>
+      <p class="section-desc" style="margin:0 auto;">Have a natural conversation with CommSense about your communication patterns. Ask about specific relationships, request coaching advice, or get real-time analysis — powered by AI that understands your full communication context.</p>
+    </div>
+
+    <div class="dual-grid fade-in">
+      <div>
+        <img class="img-dark" src="assets/commsense/chat_conversation_gif_dark.gif" alt="AI Chat Conversation — Dark" loading="lazy">
+        <img class="img-light" src="assets/commsense/chat_conversation_gif_light.gif" alt="AI Chat Conversation — Light" loading="lazy">
+      </div>
+      <div>
+        <img class="img-dark" src="assets/commsense/chat_realtime_gif_dark.gif" alt="AI Real-time Analysis — Dark" loading="lazy">
+        <img class="img-light" src="assets/commsense/chat_realtime_gif_light.gif" alt="AI Real-time Analysis — Light" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CORE CAPABILITIES ══════════════ -->
+<section>
+  <div class="wrap">
+    <div style="text-align:center;" class="fade-in">
+      <span class="section-label">Core Capabilities</span>
+      <h2 class="section-title">What powers CommSense</h2>
+    </div>
+
+    <div class="cards-grid fade-in">
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </div>
+        <h3>Platform-Agnostic Identity</h3>
+        <p>One person, one profile — regardless of how many tools they use. CommSense resolves identities across Slack, Teams, Email, and Calendar into a unified communication graph.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Privacy by Design</h3>
+        <p>Employees see only their own data. Managers see only their granted scope. No surveillance — just intelligence that drives improvement, with strict access controls baked in from day one.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3>AI-Native Analysis</h3>
+        <p>Classification, scoring, and anomaly detection powered by LLMs operating directly over the communication graph — not simple keyword matching or rule-based heuristics.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>Signal Over Noise</h3>
+        <p>In group chats, multi-recipient emails, and large meetings, CommSense extracts genuine interaction signals from co-participation noise — surfacing what actually matters.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3>Multi-Platform Integration</h3>
+        <p>Connects to Microsoft Graph (Teams, Mail, Calendar), Slack, and future integrations — pulling all organizational communication into a single unified analysis engine.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        </div>
+        <h3>Anomaly Detection</h3>
+        <p>Automatic alerts when individuals communicate with certain people markedly differently than others, when volume spikes or drops, or when team dynamics shift unexpectedly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ DESIGN PRINCIPLES ══════════════ -->
+<section style="background:var(--bg-alt);transition:background var(--transition-speed);">
+  <div class="wrap">
+    <div style="text-align:center;" class="fade-in">
+      <span class="section-label">Philosophy</span>
+      <h2 class="section-title">Design principles</h2>
+    </div>
+
+    <div class="principles-grid fade-in">
+      <div class="principle">
+        <div class="principle-num">01</div>
+        <h4>Signal over noise</h4>
+        <p>Filter co-membership from real interaction; surface what matters</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02</div>
+        <h4>Privacy by design</h4>
+        <p>Your data stays yours. Strict scoping at every level.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03</div>
+        <h4>Actionable, not surveillance</h4>
+        <p>Insights drive improvement, not punishment</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">04</div>
+        <h4>Platform-agnostic</h4>
+        <p>One person, one profile, regardless of tools used</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">05</div>
+        <h4>AI-native</h4>
+        <p>LLM-powered analysis, not keyword matching</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA ══════════════ -->
+<section class="cta-section" id="contact">
+  <div class="wrap">
+    <h2>Ready to understand your<br>organization's communication?</h2>
+    <p>Get in touch to learn more about CommSense and how it can help your team.</p>
+    <a href="mailto:contact@mandrew.ai" class="cta-button">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+      </svg>
+      contact@mandrew.ai
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <span>&copy; 2026 mandrew.ai</span>
+    <a href="index.html">Home</a>
+  </div>
+</footer>
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<script>
+  // Theme toggle
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('commsense-theme', next);
+  }
+
+  // Restore saved theme
+  (function() {
+    const saved = localStorage.getItem('commsense-theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  })();
+
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

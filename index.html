@@ -149,6 +149,13 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    .product-link:hover {
+      border-color: #6366f1 !important;
+      background: rgba(99, 102, 241, 0.06) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 24px rgba(99, 102, 241, 0.12);
+    }
+
     @media (max-width: 480px) {
       .logo { font-size: 2rem; }
       .card { padding: 1.5rem; }
@@ -163,6 +170,14 @@
     <div class="card">
       <p>We're building the next generation of AI-native products — applications designed from the ground up with intelligence at their core, not bolted on as an afterthought.</p>
     </div>
+
+    <a href="commsense.html" class="product-link" style="display:inline-flex;align-items:center;gap:0.75rem;text-decoration:none;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.25rem 2rem;margin-bottom:1.5rem;transition:all 0.3s ease;width:100%;max-width:480px;">
+      <div style="text-align:left;">
+        <div style="font-weight:600;font-size:1rem;letter-spacing:-0.01em;">CommSense</div>
+        <div style="font-size:0.85rem;color:var(--text-muted);font-weight:300;">AI intelligence over your communication graph</div>
+      </div>
+      <svg style="margin-left:auto;width:20px;height:20px;color:var(--accent);flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
 
     <a href="mailto:contact@mandrew.ai" class="contact-link">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
